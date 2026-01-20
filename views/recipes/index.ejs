@@ -3,19 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Recipes</title>
+    <title>My Pizzas</title>
   </head>
   <body>
     <%- include('../partials/_navbar.ejs') %>
-    <h1>My Recipes</h1>
+    <h1>My Pizzas</h1>
     
-    <a href="/recipes/new">Add New Recipe</a>
+    <a href="/recipes/new">Add New Pizza</a>
     
     <% if (recipes.length > 0) { %>
       <ul>
         <% recipes.forEach(recipe => { %>
           <li>
-            <a href="/recipes/<%= recipe._id %>"><%= recipe.name %></a>
+            <a href="/recipes/<%= recipe._id %>"><%= recipe.pizzaType %></a>
             <a href="/recipes/<%= recipe._id %>/edit">Edit</a>
             <form action="/recipes/<%= recipe._id %>?_method=DELETE" method="POST" style="display:inline;">
               <button type="submit">Delete</button>
@@ -24,7 +24,7 @@
         <% }); %>
       </ul>
     <% } else { %>
-      <p>You have not created any recipes yet.</p>
+      <p>You have not created any pizzas yet.</p>
     <% } %>
   </body>
 </html>

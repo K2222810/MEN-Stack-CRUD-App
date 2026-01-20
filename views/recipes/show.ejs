@@ -3,27 +3,28 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%= recipe.name %></title>
+    <title><%= recipe.pizzaType %></title>
   </head>
   <body>
     <%- include('../partials/_navbar.ejs') %>
-    <h1><%= recipe.name %></h1>
+    <h1><%= recipe.pizzaType %></h1>
     
-    <p><strong>Cuisine:</strong> <%= recipe.cuisine %></p>
-    <p><strong>Cook Time:</strong> <%= recipe.cookTime %> minutes</p>
-    <p><strong>Servings:</strong> <%= recipe.servings %></p>
+    <p><strong>Size:</strong> <%= recipe.size %></p>
+    <p><strong>Crust:</strong> <%= recipe.crust %></p>
+    <p><strong>Sauce:</strong> <%= recipe.sauce %></p>
+    <p><strong>Cheese Level:</strong> <%= recipe.cheeseLevel %></p>
     <p><strong>Instructions:</strong> <%= recipe.instructions %></p>
     
     <% if (recipe.ingredients && recipe.ingredients.length > 0) { %>
       <h2>Ingredients</h2>
       <ul>
         <% recipe.ingredients.forEach(ingredient => { %>
-          <li><%= ingredient.name %></li>
+          <li><%= ingredient.ingredients %></li>
         <% }); %>
       </ul>
     <% } %>
     
     <a href="/recipes/<%= recipe._id %>/edit">Edit</a>
-    <a href="/recipes">Back to My Recipes</a>
+    <a href="/recipes">Back to My Pizzas</a>
   </body>
 </html>

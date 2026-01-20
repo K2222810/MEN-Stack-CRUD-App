@@ -1,25 +1,28 @@
 const mongoose = require('mongoose');
 
 const recipeSchema = new mongoose.Schema({
-  name: {
+  pizzaType: {
     type: String,
     required: true,
   },
-  cuisine: {
+  size: {
+    type: String,
+    required: true,
+    enum: ['small', 'medium', 'large'],
+  },
+  crust: {
     type: String,
     required: true,
   },
-  cookTime: {
-    type: Number,
+  sauce: {
+    type: String,
     required: true,
-    min: 0,
-  },
-  servings: {
-    type: Number,
-    required: true,
-    min: 1,
   },
   instructions: {
+    type: String,
+    required: false,
+  },
+  cheeseLevel: {
     type: String,
     required: false,
   },
@@ -34,12 +37,18 @@ const recipeSchema = new mongoose.Schema({
       ref: 'Ingredient',
     },
   ],
-  likedByUsers: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
-    },
-  ],
+  isFavorite: {
+    type: Boolean,
+    default: false,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+  updatedAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 const Recipe = mongoose.model('Recipe', recipeSchema);
