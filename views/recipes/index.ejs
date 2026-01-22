@@ -3,28 +3,93 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Recipes</title>
+    <title>Browse Our Pizzas</title>
+    <link rel="stylesheet" href="/styles.css">
   </head>
   <body>
     <%- include('../partials/_navbar.ejs') %>
-    <h1>My Recipes</h1>
-    
-    <a href="/recipes/new">Add New Recipe</a>
-    
-    <% if (recipes.length > 0) { %>
-      <ul>
-        <% recipes.forEach(recipe => { %>
-          <li>
-            <a href="/recipes/<%= recipe._id %>"><%= recipe.name %></a>
-            <a href="/recipes/<%= recipe._id %>/edit">Edit</a>
-            <form action="/recipes/<%= recipe._id %>?_method=DELETE" method="POST" style="display:inline;">
-              <button type="submit">Delete</button>
-            </form>
-          </li>
-        <% }); %>
-      </ul>
-    <% } else { %>
-      <p>You have not created any recipes yet.</p>
-    <% } %>
+    <div class="container">
+      <h1>Browse Our Pizzas</h1>
+      
+      <!-- Action Cards -->
+      <div class="pizza-actions">
+        <div class="action-card">
+          <h3>Choose Your Favorite</h3>
+          <p>Mark your favorite pizzas and keep track of them</p>
+          <a href="/recipes/favorites">Browse Favorites</a>
+        </div>
+        <div class="action-card">
+          <h3>Create Your Own Pizza</h3>
+          <p>Design a custom pizza with your favorite ingredients</p>
+          <a href="/recipes/new">Create Custom Pizza</a>
+        </div>
+      </div>
+
+      <!-- Pizza Catalogue and Shopping Cart -->
+      <div class="shopping-layout">
+        <!-- Pizza Catalogue -->
+        <div class="catalogue-section" id="catalogue">
+          <h2>Pizza Catalogue</h2>
+          
+          <% if (recipes.length > 0) { %>
+            <div class="pizzas-grid">
+              <% recipes.forEach(recipe => { %>
+                <div class="pizza-card">
+                  <% if (recipe.image) { %>
+                    <img src="/assets/<%= recipe.image %>.png" alt="<%= recipe.pizzaType %>" style="width: 100%; height: 200px; object-fit: cover;" />
+                  <% } %>
+                  <div class="pizza-card-content">
+                    <h3><%= recipe.pizzaType %></h3>
+                    <p><strong>Owner:</strong> <%= recipe.owner ? recipe.owner.username : 'Unknown' %></p>
+                    <div class="pizza-actions-buttons">
+                      <a href="/recipes/<%= recipe._id %>" class="view-btn">View</a>
+                      <form action="/recipes/cart/add/<%= recipe._id %>" method="POST" style="flex: 1;">
+                        <button type="submit" class="cart-btn">🛒 Add to Cart</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              <% }); %>
+            </div>
+          <% } else { %>
+            <div class="empty-state">
+              <p>No pizzas in our catalogue yet. Be the first to create one!</p>
+              <a href="/recipes/new" class="btn-link" style="max-width: 200px;">Create First Pizza</a>
+            </div>
+          <% } %>
+        </div>
+
+        <!-- Shopping Cart -->
+        <div class="shopping-cart-section">
+          <h2>🛒 Your Order</h2>
+          <% if (cart && cart.length > 0) { %>
+            <div class="cart-items">
+              <% cart.forEach(item => { %>
+                <div class="cart-item">
+                  <div class="cart-item-info">
+                    <h4><%= item.pizzaType %></h4>
+                    <p class="cart-item-owner">by <%= item.owner.username %></p>
+                  </div>
+                  <form action="/recipes/cart/remove/<%= item._id %>" method="POST" class="cart-item-remove">
+                    <button type="submit" class="remove-btn">✕</button>
+                  </form>
+                </div>
+              <% }); %>
+            </div>
+            <div class="cart-summary">
+              <p class="cart-count"><strong>Items in cart:</strong> <%= cart.length %></p>
+              <form action="/recipes/checkout" method="POST" style="width: 100%;">
+                <button type="submit" class="btn btn-primary" style="width: 100%;">💳 Complete Order</button>
+              </form>
+            </div>
+          <% } else { %>
+            <div class="empty-cart">
+              <p>Your order is empty</p>
+              <p style="font-size: 0.9rem; color: #999;">Select pizzas from the catalogue to add them to your order</p>
+            </div>
+          <% } %>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

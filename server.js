@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const methodOverride = require('method-override');
 const morgan = require('morgan');
 const session = require('express-session');
+const MongoStore = require('connect-mongo');
 
 const authController = require('./controllers/auth.js');
 const recipesController = require('./controllers/recipes.js');
@@ -26,30 +27,27 @@ mongoose.connection.on('connected', () => {
 
 app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride('_method'));
+app.use(express.static('public'));
 // app.use(morgan('dev'));
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
+    store: MongoStore.create({
+      client: mongoose.connection.getClient(),
+    }),
   })
 );
+
+// Make session user available to all views, including home page
+app.use(passUserToView);
 
 app.get('/', (req, res) => {
   res.render('index.ejs', {
     user: req.session.user,
   });
 });
-
-app.get('/vip-lounge', (req, res) => {
-  if (req.session.user) {
-    res.send(`Welcome to the party ${req.session.user.username}.`);
-  } else {
-    res.send('Sorry, no guests allowed.');
-  }
-});
-
-app.use(passUserToView);
 app.use('/auth', authController);
 app.use('/users', usersController);
 app.use(isSignedIn);

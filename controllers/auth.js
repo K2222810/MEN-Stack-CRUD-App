@@ -19,25 +19,32 @@ router.get('/sign-out', (req, res) => {
 
 router.post('/sign-up', async (req, res) => {
   try {
-    // Check if the username is already taken
-    const userInDatabase = await User.findOne({ username: req.body.username });
-    if (userInDatabase) {
-      return res.send('Username already taken.');
+    const { username, email, name, password, confirmPassword } = req.body;
+    const normalizedUsername = username?.trim();
+    const normalizedEmail = email?.trim().toLowerCase();
+
+    // Check uniqueness on username or email
+    const existingUser = await User.findOne({
+      $or: [{ username: normalizedUsername }, { email: normalizedEmail }],
+    });
+    if (existingUser) {
+      return res.send('Username or email already taken.');
     }
-  
-    // Username is not taken already!
+
     // Check if the password and confirm password match
-    if (req.body.password !== req.body.confirmPassword) {
+    if (password !== confirmPassword) {
       return res.send('Password and Confirm Password must match');
     }
-  
-    // Must hash the password before sending to the database
-    const hashedPassword = bcrypt.hashSync(req.body.password, 10);
-    req.body.password = hashedPassword;
-  
-    // All ready to create the new user!
-    await User.create(req.body);
-  
+
+    const hashedPassword = bcrypt.hashSync(password, 10);
+
+    await User.create({
+      username: normalizedUsername,
+      email: normalizedEmail,
+      name: name?.trim(),
+      password: hashedPassword,
+    });
+
     res.redirect('/auth/sign-in');
   } catch (error) {
     console.log(error);

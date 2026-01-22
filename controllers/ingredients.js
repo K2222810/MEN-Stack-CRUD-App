@@ -3,7 +3,7 @@ const router = express.Router();
 
 const Ingredient = require('../models/ingredient.js');
 
-// Index - GET /ingredients
+// Index - GET 
 router.get('/', async (req, res) => {
   try {
     const ingredients = await Ingredient.find();
@@ -14,12 +14,12 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Create - POST /ingredients
+// Create - POST 
 router.post('/', async (req, res) => {
   try {
     // Check if ingredient already exists to prevent duplicates
     const existingIngredient = await Ingredient.findOne({
-      name: new RegExp(`^${req.body.name}$`, 'i'),
+      ingredients: new RegExp(`^${req.body.ingredients}$`, 'i'),
     });
 
     if (existingIngredient) {

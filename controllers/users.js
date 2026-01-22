@@ -4,7 +4,7 @@ const router = express.Router();
 const User = require('../models/user.js');
 const Recipe = require('../models/recipe.js');
 
-// Index - GET /users
+// Index - GET 
 router.get('/', async (req, res) => {
   try {
     const users = await User.find();
@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Show - GET /users/:userId
+// Show - GET 
 router.get('/:userId', async (req, res) => {
   try {
     const user = await User.findById(req.params.userId);

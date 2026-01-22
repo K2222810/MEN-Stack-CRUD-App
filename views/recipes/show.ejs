@@ -3,27 +3,65 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%= recipe.name %></title>
+    <title><%= recipe.pizzaType %></title>
+    <link rel="stylesheet" href="/styles.css">
   </head>
   <body>
     <%- include('../partials/_navbar.ejs') %>
-    <h1><%= recipe.name %></h1>
-    
-    <p><strong>Cuisine:</strong> <%= recipe.cuisine %></p>
-    <p><strong>Cook Time:</strong> <%= recipe.cookTime %> minutes</p>
-    <p><strong>Servings:</strong> <%= recipe.servings %></p>
-    <p><strong>Instructions:</strong> <%= recipe.instructions %></p>
-    
-    <% if (recipe.ingredients && recipe.ingredients.length > 0) { %>
-      <h2>Ingredients</h2>
-      <ul>
-        <% recipe.ingredients.forEach(ingredient => { %>
-          <li><%= ingredient.name %></li>
-        <% }); %>
-      </ul>
-    <% } %>
-    
-    <a href="/recipes/<%= recipe._id %>/edit">Edit</a>
-    <a href="/recipes">Back to My Recipes</a>
+    <div class="page-container">
+      <div class="page-header">
+        <h1><%= recipe.pizzaType %></h1>
+        <p>Detailed Pizza Information</p>
+      </div>
+      
+      <div class="recipe-details">
+        <% if (recipe.image) { %>
+          <div class="detail-item">
+            <img src="/assets/<%= recipe.image %>.png" alt="<%= recipe.pizzaType %>" style="width: 100%; max-height: 400px; object-fit: cover; border-radius: 8px; margin-bottom: 20px;" />
+          </div>
+        <% } %>
+        <div class="detail-item">
+          <strong>Size</strong>
+          <p><%= recipe.size %></p>
+        </div>
+        <div class="detail-item">
+          <strong>Crust</strong>
+          <p><%= recipe.crust %></p>
+        </div>
+        <div class="detail-item">
+          <strong>Sauce</strong>
+          <p><%= recipe.sauce %></p>
+        </div>
+        <div class="detail-item">
+          <strong>Cheese Level</strong>
+          <p><%= recipe.cheeseLevel %></p>
+        </div>
+        <div class="detail-item">
+          <strong>Instructions</strong>
+          <p><%= recipe.instructions %></p>
+        </div>
+        
+        <% if (recipe.ingredients && recipe.ingredients.length > 0) { %>
+          <div class="detail-item">
+            <strong>Ingredients</strong>
+            <ul style="margin-top: 10px; padding-left: 20px;">
+              <% recipe.ingredients.forEach(ingredient => { %>
+                <li style="margin-bottom: 8px;"><%= ingredient.ingredients %></li>
+              <% }); %>
+            </ul>
+          </div>
+        <% } %>
+      </div>
+      
+      <div class="btn-group" style="max-width: 600px; margin-left: auto; margin-right: auto; flex-wrap: wrap; gap: 10px;">
+        <form action="/recipes/<%= recipe._id %>/favorite" method="POST" style="display: inline;">
+          <button type="submit" class="btn <%= recipe.isFavorite ? 'btn-danger' : 'btn-primary' %>">
+            <%= recipe.isFavorite ? 'Remove from Favorites' : 'Add to Favorites' %>
+          </button>
+        </form>
+        <a href="/recipes/<%= recipe._id %>/edit" class="btn-link">Edit Pizza</a>
+        <a href="/recipes" class="btn-link btn-secondary">Back to My Pizzas</a>
+      </div>
+    </div>
   </body>
 </html>

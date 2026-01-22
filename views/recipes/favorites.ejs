@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Favorite Pizzas</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <%- include('../partials/_navbar.ejs') %>
+    
+    <div class="page-container">
+        <div class="page-header">
+            <h1>My Favorite Pizzas</h1>
+            <p>Your collection of favorite pizzas</p>
+        </div>
+
+        <% if (favorites.length === 0) { %>
+            <div class="info-message">
+                <p>You haven't marked any pizzas as favorites yet!</p>
+                <a href="/recipes" class="btn btn-primary">Browse All Pizzas</a>
+            </div>
+        <% } else { %>
+            <div class="recipes-grid">
+                <% favorites.forEach(recipe => { %>
+                    <div class="recipe-card">
+                        <div class="recipe-image">
+                            <img src="/assets/<%= recipe.image %>.png" alt="<%= recipe.pizzaType %>">
+                        </div>
+                        <div class="recipe-info">
+                            <h3><%= recipe.pizzaType %></h3>
+                            <p class="recipe-owner">by <%= recipe.owner.username %></p>
+                            <div class="recipe-details">
+                                <span class="detail-badge"><%= recipe.size %></span>
+                                <span class="detail-badge"><%= recipe.crust %></span>
+                            </div>
+                            <div class="recipe-actions">
+                                <a href="/recipes/<%= recipe._id %>" class="btn btn-small btn-primary">View</a>
+                                <% if (recipe.owner._id.toString() === user._id.toString()) { %>
+                                    <a href="/recipes/<%= recipe._id %>/edit" class="btn btn-small btn-secondary">Edit</a>
+                                    <form action="/recipes/<%= recipe._id %>?_method=DELETE" method="POST" style="display: inline;">
+                                        <button type="submit" class="btn btn-small btn-danger" onclick="return confirm('Are you sure you want to delete this pizza?')">Delete</button>
+                                    </form>
+                                <% } %>
+                            </div>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+        <% } %>
+    </div>
+</body>
+</html>
