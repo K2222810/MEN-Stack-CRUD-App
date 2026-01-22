@@ -34,11 +34,13 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
-    store: MongoStore.create({
-      client: mongoose.connection.getClient(),
+    store: MongoStore.MongoStore.create({
+      mongoUrl: process.env.MONGODB_URI,
     }),
   })
 );
+
+
 
 // Make session user available to all views, including home page
 app.use(passUserToView);
@@ -49,8 +51,8 @@ app.get('/', (req, res) => {
   });
 });
 app.use('/auth', authController);
-app.use('/users', usersController);
 app.use(isSignedIn);
+app.use('/users', usersController);
 app.use('/recipes', recipesController);
 app.use('/ingredients', ingredientsController);
 
