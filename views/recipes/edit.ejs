@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Edit Pizza</title>
+    <title>Pizza Cap - Edit</title>
     <link rel="stylesheet" href="/styles.css">
     <script src="/images.js"></script>
   </head>
@@ -11,7 +11,6 @@
     <%- include('../partials/_navbar.ejs') %>
     <div class="page-container">
       <div class="page-header">
-        <h1>Edit Your Pizza</h1>
         <p>Update pizza details</p>
       </div>
       
@@ -25,14 +24,20 @@
           <label for="imageSelect">Select Pizza Image:</label>
           <select id="imageSelect">
             <option value="">Choose an image...</option>
-            <option value="/assets/margherita.png" <% if (recipe.image === '/assets/margherita.png') { %>selected<% } %>>Margherita</option>
-            <option value="/assets/pepperoni.png" <% if (recipe.image === '/assets/pepperoni.png') { %>selected<% } %>>Pepperoni</option>
-            <option value="/assets/vegetarian.png" <% if (recipe.image === '/assets/vegetarian.png') { %>selected<% } %>>Vegetarian</option>
-            <option value="/assets/hawaiian.png" <% if (recipe.image === '/assets/hawaiian.png') { %>selected<% } %>>Hawaiian</option>
-            <option value="/assets/bbq-chicken.png" <% if (recipe.image === '/assets/bbq-chicken.png') { %>selected<% } %>>BBQ Chicken</option>
-            <option value="/assets/four-cheese.png" <% if (recipe.image === '/assets/four-cheese.png') { %>selected<% } %>>Four Cheese</option>
-            <option value="/assets/meat-lovers.png" <% if (recipe.image === '/assets/meat-lovers.png') { %>selected<% } %>>Meat Lovers</option>
-            <option value="/assets/seafood.png" <% if (recipe.image === '/assets/seafood.png') { %>selected<% } %>>Seafood</option>
+            <option value="/assets/argentinian-fugazza-pizza.jpg" <% if (recipe.image === '/assets/argentinian-fugazza-pizza.jpg') { %>selected<% } %>>Argentinian Fugazza</option>
+            <option value="/assets/brazilian-pizza.jpg" <% if (recipe.image === '/assets/brazilian-pizza.jpg') { %>selected<% } %>>Brazilian Pizza</option>
+            <option value="/assets/california-pizza.jpg" <% if (recipe.image === '/assets/california-pizza.jpg') { %>selected<% } %>>California Pizza</option>
+            <option value="/assets/canadian-quebecois-pizza.jpg" <% if (recipe.image === '/assets/canadian-quebecois-pizza.jpg') { %>selected<% } %>>Canadian Quebecois</option>
+            <option value="/assets/chicago-deep-dish-pizza.jpg" <% if (recipe.image === '/assets/chicago-deep-dish-pizza.jpg') { %>selected<% } %>>Chicago Deep Dish</option>
+            <option value="/assets/detroit-pizza.jpg" <% if (recipe.image === '/assets/detroit-pizza.jpg') { %>selected<% } %>>Detroit Pizza</option>
+            <option value="/assets/hawaiian-pizza.jpg" <% if (recipe.image === '/assets/hawaiian-pizza.jpg') { %>selected<% } %>>Hawaiian Pizza</option>
+            <option value="/assets/miami-cuban-pizza.jpg" <% if (recipe.image === '/assets/miami-cuban-pizza.jpg') { %>selected<% } %>>Miami Cuban Pizza</option>
+            <option value="/assets/milan-style.jpg" <% if (recipe.image === '/assets/milan-style.jpg') { %>selected<% } %>>Milan Style</option>
+            <option value="/assets/neapolitan-pizza.jpg" <% if (recipe.image === '/assets/neapolitan-pizza.jpg') { %>selected<% } %>>Neapolitan Pizza</option>
+            <option value="/assets/new-york-pizza.jpg" <% if (recipe.image === '/assets/new-york-pizza.jpg') { %>selected<% } %>>New York Pizza</option>
+            <option value="/assets/roman-pizza.jpg" <% if (recipe.image === '/assets/roman-pizza.jpg') { %>selected<% } %>>Roman Pizza</option>
+            <option value="/assets/sicilian-pizza.jpg" <% if (recipe.image === '/assets/sicilian-pizza.jpg') { %>selected<% } %>>Sicilian Pizza</option>
+            <option value="/assets/thai-pizza.jpg" <% if (recipe.image === '/assets/thai-pizza.jpg') { %>selected<% } %>>Thai Pizza</option>
           </select>
           <input type="hidden" id="image" name="image" value="<%= recipe.image || '' %>" />
           <div id="imagePreview" style="margin-top: 15px;">
@@ -41,6 +46,14 @@
             <% } %>
           </div>
         </div>
+        <script>
+          // Initialize image selector on page load
+          document.addEventListener('DOMContentLoaded', function() {
+            if (typeof initImageSelector === 'function') {
+              initImageSelector();
+            }
+          });
+        </script>
         
         <div class="form-group">
           <label for="size">Size:</label>

@@ -3,21 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%= recipe.pizzaType %></title>
+    <title>Pizza Cap - Show</title>
     <link rel="stylesheet" href="/styles.css">
   </head>
   <body>
     <%- include('../partials/_navbar.ejs') %>
     <div class="page-container">
       <div class="page-header">
-        <h1><%= recipe.pizzaType %></h1>
         <p>Detailed Pizza Information</p>
       </div>
       
       <div class="recipe-details">
         <% if (recipe.image) { %>
           <div class="detail-item">
-            <img src="/assets/<%= recipe.image %>.png" alt="<%= recipe.pizzaType %>" style="width: 100%; max-height: 400px; object-fit: cover; border-radius: 8px; margin-bottom: 20px;" />
+            <img src="<%= recipe.image %>" alt="<%= recipe.pizzaType %>" style="width: 100%; max-height: 400px; object-fit: cover; border-radius: 8px; margin-bottom: 20px;" />
           </div>
         <% } %>
         <div class="detail-item">

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Add New Recipe</title>
+    <title>Pizza Cap - New</title>
     <link rel="stylesheet" href="/styles.css">
     <script src="/images.js"></script>
   </head>
@@ -11,7 +11,6 @@
     <%- include('../partials/_navbar.ejs') %>
     <div class="page-container">
       <div class="page-header">
-        <h1>Create Your Pizza</h1>
         <p>Design your perfect pizza</p>
       </div>
       
@@ -25,14 +24,20 @@
           <label for="imageSelect">Select Pizza Image:</label>
           <select id="imageSelect">
             <option value="">Choose an image...</option>
-            <option value="/assets/margherita.png">Margherita</option>
-            <option value="/assets/pepperoni.png">Pepperoni</option>
-            <option value="/assets/vegetarian.png">Vegetarian</option>
-            <option value="/assets/hawaiian.png">Hawaiian</option>
-            <option value="/assets/bbq-chicken.png">BBQ Chicken</option>
-            <option value="/assets/four-cheese.png">Four Cheese</option>
-            <option value="/assets/meat-lovers.png">Meat Lovers</option>
-            <option value="/assets/seafood.png">Seafood</option>
+            <option value="/assets/argentinian-fugazza-pizza.jpg">Argentinian Fugazza</option>
+            <option value="/assets/brazilian-pizza.jpg">Brazilian Pizza</option>
+            <option value="/assets/california-pizza.jpg">California Pizza</option>
+            <option value="/assets/canadian-quebecois-pizza.jpg">Canadian Quebecois</option>
+            <option value="/assets/chicago-deep-dish-pizza.jpg">Chicago Deep Dish</option>
+            <option value="/assets/detroit-pizza.jpg">Detroit Pizza</option>
+            <option value="/assets/hawaiian-pizza.jpg">Hawaiian Pizza</option>
+            <option value="/assets/miami-cuban-pizza.jpg">Miami Cuban Pizza</option>
+            <option value="/assets/milan-style.jpg">Milan Style</option>
+            <option value="/assets/neapolitan-pizza.jpg">Neapolitan Pizza</option>
+            <option value="/assets/new-york-pizza.jpg">New York Pizza</option>
+            <option value="/assets/roman-pizza.jpg">Roman Pizza</option>
+            <option value="/assets/sicilian-pizza.jpg">Sicilian Pizza</option>
+            <option value="/assets/thai-pizza.jpg">Thai Pizza</option>
           </select>
           <input type="hidden" id="image" name="image" />
           <div id="imagePreview" style="margin-top: 15px;"></div>

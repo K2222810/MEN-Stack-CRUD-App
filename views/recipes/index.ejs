@@ -3,13 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Browse Our Pizzas</title>
+    <title>Pizza Cap - Recipes Index</title>
     <link rel="stylesheet" href="/styles.css">
   </head>
   <body>
     <%- include('../partials/_navbar.ejs') %>
     <div class="container">
-      <h1>Browse Our Pizzas</h1>
       
       <!-- Action Cards -->
       <div class="pizza-actions">
@@ -36,7 +35,7 @@
               <% recipes.forEach(recipe => { %>
                 <div class="pizza-card">
                   <% if (recipe.image) { %>
-                    <img src="/assets/<%= recipe.image %>.png" alt="<%= recipe.pizzaType %>" style="width: 100%; height: 200px; object-fit: cover;" />
+                    <img src="<%= recipe.image %>" alt="<%= recipe.pizzaType %>" style="width: 100%; height: 200px; object-fit: cover;" />
                   <% } %>
                   <div class="pizza-card-content">
                     <h3><%= recipe.pizzaType %></h3>
@@ -44,7 +43,7 @@
                     <div class="pizza-actions-buttons">
                       <a href="/recipes/<%= recipe._id %>" class="view-btn">View</a>
                       <form action="/recipes/cart/add/<%= recipe._id %>" method="POST" style="flex: 1;">
-                        <button type="submit" class="cart-btn">🛒 Add to Cart</button>
+                        <button type="submit" class="cart-btn">Add to Cart</button>
                       </form>
                     </div>
                   </div>
@@ -61,7 +60,7 @@
 
         <!-- Shopping Cart -->
         <div class="shopping-cart-section">
-          <h2>🛒 Your Order</h2>
+          <h2>Your Order</h2>
           <% if (cart && cart.length > 0) { %>
             <div class="cart-items">
               <% cart.forEach(item => { %>
